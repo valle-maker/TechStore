@@ -1,9 +1,9 @@
 class Producto:
-    def __init__(self):
-        self.id = 0
-        self.nombre = ""
-        self.precio = 0
-        self.cantidad = ""
+    def __init__(self, id, nombre, precio, cantidad):
+        self.id = id
+        self.nombre = nombre
+        self.precio = precio
+        self.cantidad = cantidad
     def pedir_datos(self):
         self.id = int(input("Ingrese el id del producto: "))
         self.nombre = input("Ingrese el nombre del producto: ")

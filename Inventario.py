@@ -6,6 +6,7 @@
 #Mirar si se puede usar el método de actulizar_cantidad en el de eliminar por ejemplo
 #Para la parte del main, se guarda siempre un objeto, esto es para cuando lo este guardando en listas
 #Ya esta melo y guardo en archivos, falta el método para actulizar 
+#Revisar el método de buscar y eliminar
 
 
 
@@ -15,10 +16,11 @@ class Inventario:
     def __init__(self):
         self.productos = []
         self.archivo_productos = "a_productos.csv"
+        self.actualizar_archivo()
 
     
     def agregar_productos(self):
-        pro = Producto()
+        pro = Producto(0, "", 0, 0)
         pro.pedir_datos()
         self.productos.append(pro)
         self.guardar_archivo()
@@ -40,7 +42,7 @@ class Inventario:
                 if id == self.productos[i].id:
                     pos = i
             if pos <0:
-                print("No se encontro el producto")
+                print("No se encontro el producto---")
             
             return pos
         
@@ -56,10 +58,10 @@ class Inventario:
 
     def mostrar_prodcutos(self):
         for pro in self.productos:
-            print(f"Nombre:{pro.nombre}\nPrecio:{pro.precio}\nExistencias: {pro.cantidad}")
+            print(f"Nombre: {pro.nombre}\nPrecio: {pro.precio}\nExistencias: {pro.cantidad}")
 
 
-    def eliminar_productos(self, id, cantidad):
+    def eliminar_cantidad(self, id, cantidad):
         posicion = self.buscar_productos(id)
 
         if posicion >= 0:
@@ -69,6 +71,7 @@ class Inventario:
                 else:
                     print(f"Quiere eliminar {cantidad}, pero solo hay {self.productos[posicion].cantidad}")
                     eliminar_todo = input("Eliminar todo (si/no)")
+                    #Acá se debe implementar el método del pop()
                     if eliminar_todo.lower()=='si':
                         self.productos[posicion].cantidad=0
                         return
@@ -104,14 +107,23 @@ class Inventario:
                     'Cantidad': pro.cantidad,
                     'Precio': pro.cantidad
                 })
+    def actualizar_archivo(self):
+        with open(self.archivo_productos, "r", newline="") as f:
+            lector = csv.DictReader(f)
+            for pro in lector:
+                id = pro['Id']
+                nombre = pro['Nombre']
+                cantidad = pro['Cantidad']
+                precio = pro['Precio']
 
-        
+                self.productos.append(Producto(id, nombre, cantidad, precio))
        
         
 obj=Inventario()
-obj.agregar_productos()
+#obj.agregar_productos()
+#obj.agregar_productos()
 #obj.actualizar_precio(123, 3000)
 #obj.buscar_productos_nombre("dell")
 #obj.buscar_productos(123)
-obj.eliminar_productos(123, 8)
+obj.eliminar_cantidad(129, 22)
 obj.mostrar_prodcutos()

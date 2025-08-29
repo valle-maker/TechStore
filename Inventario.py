@@ -5,6 +5,8 @@
 #Separar los inpus y los outputs
 #Mirar si se puede usar el método de actulizar_cantidad en el de eliminar por ejemplo
 #Para la parte del main, se guarda siempre un objeto, esto es para cuando lo este guardando en listas
+#Ya esta melo y guardo en archivos, falta el método para actulizar 
+
 
 
 from Producto import Producto
@@ -19,6 +21,7 @@ class Inventario:
         pro = Producto()
         pro.pedir_datos()
         self.productos.append(pro)
+        self.guardar_archivo()
 
     
     def verificar_lista_vacia(self):
@@ -73,11 +76,13 @@ class Inventario:
                         return
             else:
                 print("Ya no quedan existencias del producto a eliminar")
+        self.guardar_archivo()
 
     def actualizar_precio(self, id, n_precio):
         pos = self.buscar_productos(id)
         if pos >= 0:
             self.productos[pos].precio = n_precio
+        self.guardar_archivo()
 
 
     def actulizar_cantidad(self, id, n_cantidad):
@@ -85,6 +90,21 @@ class Inventario:
         pos = self.buscar_productos(id)
         if pos >=0:
             self.productos[pos].cantidad = n_cantidad
+        self.guardar_archivo()
+
+    def guardar_archivo(self):
+        with open(self.archivo_productos, "w", newline="") as f:
+            field_names = ['Id', 'Nombre' ,'Cantidad', 'Precio']
+            escritor = csv.DictWriter(f, fieldnames=field_names)
+            escritor.writeheader()
+            for pro in self.productos:
+                escritor.writerow({
+                    'Id': pro.id,
+                    'Nombre': pro.nombre,
+                    'Cantidad': pro.cantidad,
+                    'Precio': pro.cantidad
+                })
+
         
        
         

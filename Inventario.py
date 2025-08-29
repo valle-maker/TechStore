@@ -59,6 +59,7 @@ class Inventario:
     def mostrar_prodcutos(self):
         for pro in self.productos:
             print(f"Nombre: {pro.nombre}\nPrecio: {pro.precio}\nExistencias: {pro.cantidad}")
+        
 
 
     def eliminar_cantidad(self, id, cantidad):
@@ -117,7 +118,7 @@ class Inventario:
                 precio = pro['Precio']
 
                 self.productos.append(Producto(id, nombre, cantidad, precio))
-       
+        
         
 obj=Inventario()
 #obj.agregar_productos()

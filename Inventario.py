@@ -1,5 +1,5 @@
 #Tareas:
-#Actulizar precio o cantidada de producto existente 
+#Organizar el método de buscar por nombre
 #Hacer la verificación de que no se puede agregar cero productos o negativos(Ya sea hacer el método o la clase)
 #Verificar que la lista no este vacia(Hacer que el método de verificacion funcione)
 #Separar los inpus y los outputs
@@ -7,6 +7,7 @@
 #Para la parte del main, se guarda siempre un objeto, esto es para cuando lo este guardando en listas
 #Ya esta melo y guardo en archivos, falta el método para actulizar 
 #Revisar el método de buscar y eliminar
+###Mejoras con Ia. cuando traigo los elementos del archivo los traigo todos como cadenas entonces se debe hacer la conversion
 
 
 
@@ -35,18 +36,13 @@ class Inventario:
         
         
     def buscar_productos(self, id):
-        verificacion_lista = self.verificar_lista_vacia()
-        if verificacion_lista==1:
-            pos = -1
-            for i in range(len(self.productos)):
-                if id == self.productos[i].id:
-                    pos = i
-            if pos <0:
-                print("No se encontro el producto---")
-            
-            return pos
-        
-        
+        if self.verificar_lista_vacia()==-1:
+            return None
+        for i in range(len(self.productos)):
+            if id == self.productos[i].id:
+                return i
+        print("No se encontró el producto")
+        return None
     def buscar_productos_nombre(self, nombre):
         #Incluir la verificación de que la lista tenga datos
         for prod in self.productos: 
@@ -59,6 +55,16 @@ class Inventario:
     def mostrar_prodcutos(self):
         for pro in self.productos:
             print(f"Nombre: {pro.nombre}\nPrecio: {pro.precio}\nExistencias: {pro.cantidad}")
+    
+
+    def eliminar_producto(self, id):
+        pos = self.buscar_productos(id)
+        if pos is not None:
+            self.productos.pop(pos)
+            print("Producto eliminado con exito!")
+            self.guardar_archivo()
+        else:
+            print("No se pudó eliminar porque no existe")
         
 
 
@@ -106,25 +112,18 @@ class Inventario:
                     'Id': pro.id,
                     'Nombre': pro.nombre,
                     'Cantidad': pro.cantidad,
-                    'Precio': pro.cantidad
+                    'Precio': pro.precio
                 })
     def actualizar_archivo(self):
         with open(self.archivo_productos, "r", newline="") as f:
             lector = csv.DictReader(f)
             for pro in lector:
-                id = pro['Id']
+                id = int(pro['Id'])
                 nombre = pro['Nombre']
-                cantidad = pro['Cantidad']
-                precio = pro['Precio']
+                cantidad = int(pro['Cantidad'])
+                precio = int(pro['Precio'])
 
                 self.productos.append(Producto(id, nombre, cantidad, precio))
         
         
-obj=Inventario()
-#obj.agregar_productos()
-#obj.agregar_productos()
-#obj.actualizar_precio(123, 3000)
-#obj.buscar_productos_nombre("dell")
-#obj.buscar_productos(123)
-obj.eliminar_cantidad(129, 22)
-obj.mostrar_prodcutos()
+

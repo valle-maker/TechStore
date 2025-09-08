@@ -1,3 +1,4 @@
 class Verificacion:
-    def __init__(self):
+    def leer_entero(self, mensaje):
         pass
+        

@@ -1,12 +1,6 @@
 #Tareas:
-#Organizar el método de buscar por nombre
-#Hacer la verificación de que no se puede agregar cero productos o negativos(Ya sea hacer el método o la clase)
 #Verificar que la lista no este vacia(Hacer que el método de verificacion funcione)
-#Separar los inpus y los outputs
 #Mirar si se puede usar el método de actulizar_cantidad en el de eliminar por ejemplo
-#Para la parte del main, se guarda siempre un objeto, esto es para cuando lo este guardando en listas
-#Ya esta melo y guardo en archivos, falta el método para actulizar 
-#Revisar el método de buscar y eliminar
 ###Mejoras con Ia. cuando traigo los elementos del archivo los traigo todos como cadenas entonces se debe hacer la conversion
 
 
@@ -43,17 +37,26 @@ class Inventario:
                 return i
         print("No se encontró el producto")
         return None
+    
+
     def buscar_productos_nombre(self, nombre):
         #Incluir la verificación de que la lista tenga datos
+        flag = False
         for prod in self.productos: 
-            if prod.nombre==nombre:
+            if prod.nombre.lower()==nombre.lower():
+                flag = True
+                print("--Información del producto: ")
                 print(f"Producto: {prod.nombre}\nPrecio: {prod.precio}\nExistencias: {prod.cantidad}")
-            else:
-                print("No se encontro el producto")
+        
+        if not flag:
+            print("No se encontró el porducto")
 
 
     def mostrar_prodcutos(self):
+        i =0
         for pro in self.productos:
+            i+=1
+            print(f"Producto número: {i}")
             print(f"Nombre: {pro.nombre}\nPrecio: {pro.precio}\nExistencias: {pro.cantidad}")
     
 

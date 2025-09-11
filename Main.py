@@ -23,23 +23,42 @@ class Main:
                 case 1:
                     self.inventario.agregar_productos()
                 case 2:
-                    id = self.ver.leer_entero("Ingrese el id del producto")
-                    self.inventario.eliminar_producto(id)
+                    if not self.inventario.productos:
+                        print("Lista vacia")
+                    else:
+                        id = self.ver.leer_entero("Ingrese el id del producto: ")
+                        self.inventario.eliminar_producto(id)
                 
                 case 3:
-                    nombre = input("Ingrese el nombre del producto que desea buscar: ")
-                    self.inventario.buscar_productos_nombre(nombre)
+                    if not self.inventario.productos:
+                        print("Lista vacia")
+                    else:
+                        nombre = input("Ingrese el nombre del producto que desea buscar: ")
+                        self.inventario.buscar_productos_nombre(nombre)
                 case 4:
-                    self.inventario.mostrar_prodcutos()
+                    if not self.inventario.productos:
+                        print("Lista vacia")
+                    else:
+                        self.inventario.mostrar_prodcutos()
                 case 5: 
-                    id_prodcuto = self.ver.leer_entero("Ingrese el id del producto: ")
-                    n_cantidad = self.ver.leer_entero("Ingrese la nueva cantidad: ")
-                    self.inventario.actulizar_cantidad(id_prodcuto, n_cantidad)
+                    if not self.inventario.productos:
+                        print("Lista vacia")
+                    else:
+                        id_producto = self.ver.leer_entero("Ingrese el id del producto: ")
+                        existe = self.inventario.buscar_productos(id_producto)
+                        if existe is not None:
+                            n_cantidad = self.ver.leer_entero("Ingrese la nueva cantidad: ")
+                            self.inventario.actulizar_cantidad(id_producto, n_cantidad)
 
                 case 6:
-                    id_prodcuto = self.ver.leer_entero("Ingrese el id del producto: ")
-                    n_cantidad = self.ver.leer_entero("Ingrese el nuevo precio: ")
-                    self.inventario.actualizar_precio(id_prodcuto, n_cantidad)
+                    if not self.inventario.productos:
+                        print("Lista vacia")
+                    else:
+                        id_prodcuto = self.ver.leer_entero("Ingrese el id del producto: ")
+                        existe = self.inventario.buscar_productos(id_prodcuto)
+                        if existe is not None:
+                            n_cantidad = self.ver.leer_entero("Ingrese el nuevo precio: ")
+                            self.inventario.actualizar_precio(id_prodcuto, n_cantidad)
                 case 7:
                     print("Saliendo...")
                     break

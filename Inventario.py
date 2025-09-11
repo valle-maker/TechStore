@@ -1,6 +1,3 @@
-#Tareas:
-#Verificar que la lista no este vacia(Hacer que el método de verificacion funcione)
-#Mirar si se puede usar el método de actulizar_cantidad en el de eliminar por ejemplo
 ###Mejoras con Ia. cuando traigo los elementos del archivo los traigo todos como cadenas entonces se debe hacer la conversion
 
 
@@ -22,16 +19,14 @@ class Inventario:
 
     
     def verificar_lista_vacia(self):
-        if self.productos == []:
-            print("EL inventario esta vacio")
-            return -1
+        if not self.productos:
+            print("Lista vacia")
         else:
-            return 1
+            pass
         
         
     def buscar_productos(self, id):
-        if self.verificar_lista_vacia()==-1:
-            return None
+        
         for i in range(len(self.productos)):
             if id == self.productos[i].id:
                 return i
@@ -57,7 +52,7 @@ class Inventario:
         for pro in self.productos:
             i+=1
             print(f"Producto número: {i}")
-            print(f"Nombre: {pro.nombre}\nPrecio: {pro.precio}\nExistencias: {pro.cantidad}")
+            print(f"Nombre: {pro.nombre}\nPrecio: {pro.precio}\nExistencias: {pro.cantidad}\n")
     
 
     def eliminar_producto(self, id):
@@ -66,8 +61,7 @@ class Inventario:
             self.productos.pop(pos)
             print("Producto eliminado con exito!")
             self.guardar_archivo()
-        else:
-            print("No se pudó eliminar porque no existe")
+        
         
 
 
@@ -93,16 +87,16 @@ class Inventario:
 
     def actualizar_precio(self, id, n_precio):
         pos = self.buscar_productos(id)
-        if pos >= 0:
+        if pos is not None:
             self.productos[pos].precio = n_precio
         self.guardar_archivo()
 
 
     def actulizar_cantidad(self, id, n_cantidad):
-        #Hacer las verificaciones de ingresar nuevas cantidades
         pos = self.buscar_productos(id)
-        if pos >=0:
+        if pos is not None:
             self.productos[pos].cantidad = n_cantidad
+        
         self.guardar_archivo()
 
     def guardar_archivo(self):

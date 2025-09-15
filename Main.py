@@ -1,9 +1,12 @@
-#Si ingreso una opción que no es, marca error
+
 from Verificacion import Verificacion
 from Inventario import Inventario
-
+#Clase menú
 class Main:
+    #Método constructor
     def __init__(self):
+        #Creamos un atributo que me va a contener siempre un inventario, cada que se ejecute el main se creara un nuevo inventario
+        #que contiene la informacion del archivo
         self.inventario = Inventario()
         self.ver = Verificacion()
     def menu(self):
